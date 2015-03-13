@@ -58,12 +58,8 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                                 modCtrl.Update(info);
                             }
 
-                            //check that the order is valid. (Not yet been processed  "020" = Waiting for Bank) 
-                            if (orderData.OrderStatus == "020")
-                            {
-                                //set order status to Payed
-                                orderData.PaymentOk();
-                            }
+                            //set order status to Payed
+                            orderData.PaymentOk();
                         }
                         else
                         {
