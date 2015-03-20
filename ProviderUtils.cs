@@ -96,7 +96,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
 
             //Build the re-direct html 
             var rtnStr = rPost.GetPostHtml("/DesktopModules/NBright/NBrightPayPal/Themes/config/img/paypal.gif");
-            if (StoreSettings.Current.DebugMode)
+            if (settings.GetXmlPropertyBool("genxml/checkbox/debugmode"))
             {
                 File.WriteAllText(PortalSettings.Current.HomeDirectoryMapPath + "\\debug_NBrightPayPalpost.html", rtnStr);
             }
