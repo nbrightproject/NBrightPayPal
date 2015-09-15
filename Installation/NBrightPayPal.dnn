@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
 	<packages>
-		<package name="NBrightPayPal" type="Module" version="1.0.4">
+		<package name="NBrightPayPal" type="Module" version="1.0.5">
 			<friendlyName>NBrightPayPal</friendlyName>
 			<description>NBrightPayPal: PayPal Payment provider for NBrightStore</description>
 			<iconFile />
