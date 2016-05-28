@@ -14,7 +14,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
 
         /// <summary>
         /// This function needs to process and returned message from the bank.
-        /// Thsi processing may vary widely between banks.
+        /// This processing may vary widely between banks.
         /// </summary>
         /// <param name="context"></param>
         public void ProcessRequest(HttpContext context)
@@ -65,13 +65,15 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                         {
                             if (ipn.IsValid)
                             {
-                                info.SetXmlProperty("genxml/debugmsg", "NOT VALIDATED BY PAYPAL");                               
+                                info.SetXmlProperty("genxml/debugmsg", "NOT VALIDATED BY PAYPAL");
+                                //set order status to Not verified
+                                orderData.PaymentOk("050");
                             }
                             else
                             {
-                                info.SetXmlProperty("genxml/debugmsg", "PAYMENT FAIL");                                             
+                                info.SetXmlProperty("genxml/debugmsg", "PAYMENT FAIL");
+                                orderData.PaymentFail();
                             }
-                            orderData.PaymentFail();
                         }
                     }
                     else
