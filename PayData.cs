@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Diagnostics.Eventing.Reader;
 using System.Dynamic;
+using System.Globalization;
 using System.Runtime.Remoting.Channels;
 using System.Security.Cryptography;
 using System.Text;
@@ -48,11 +49,11 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
             ReturnCancelUrl = Globals.NavigateURL(StoreSettings.Current.PaymentTabId, "", param);
             NotifyUrl = Utils.ToAbsoluteUrl("/DesktopModules/NBright/NBrightPayPal/notify.ashx");
             MerchantLanguage = Utils.GetCurrentCulture();
-            Amount = (appliedtotal - alreadypaid).ToString("0.00");
+            Amount = (appliedtotal - alreadypaid).ToString("0.00", CultureInfo.InvariantCulture);
             Email = oInfo.PurchaseInfo.GetXmlProperty("genxml/billaddress/textbox/billaddress");
             if (!Utils.IsEmail(Email)) Email = oInfo.PurchaseInfo.GetXmlProperty("genxml/extrainfo/textbox/cartemailaddress");
-            ShippingAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/shippingcost").ToString("0.00");
-            TaxAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/taxcost").ToString("0.00");
+            ShippingAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/shippingcost").ToString("0.00", CultureInfo.InvariantCulture);
+            TaxAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/taxcost").ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public string ItemId { get; set; }
