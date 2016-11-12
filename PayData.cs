@@ -52,8 +52,14 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
             Amount = (appliedtotal - alreadypaid).ToString("0.00", CultureInfo.InvariantCulture);
             Email = oInfo.PurchaseInfo.GetXmlProperty("genxml/billaddress/textbox/billaddress");
             if (!Utils.IsEmail(Email)) Email = oInfo.PurchaseInfo.GetXmlProperty("genxml/extrainfo/textbox/cartemailaddress");
-            ShippingAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/shippingcost").ToString("0.00", CultureInfo.InvariantCulture);
-            TaxAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/taxcost").ToString("0.00", CultureInfo.InvariantCulture);
+            // set shipping and tax to zero, these should be calculated by the store so the amount should always be correct.
+            // for some reason paypal seem to add shipping and tax to the total.  
+            // Not sure if this is a new change by paypal, or if it's always been wrong!!
+            //ShippingAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/shippingcost").ToString("0.00", CultureInfo.InvariantCulture);
+            //TaxAmount = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/taxcost").ToString("0.00", CultureInfo.InvariantCulture);
+            const int zero = 0;
+            ShippingAmount = zero.ToString("0.00", CultureInfo.InvariantCulture);
+            TaxAmount = zero.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public string ItemId { get; set; }
