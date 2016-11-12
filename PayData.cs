@@ -28,7 +28,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
         public void LoadSettings(OrderData oInfo)
         {
             var settings = ProviderUtils.GetProviderSettings("NBrightPayPalpayment");
-            var appliedtotal = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/appliedsubtotal");
+            var appliedtotal = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/appliedtotal");
             var alreadypaid = oInfo.PurchaseInfo.GetXmlPropertyDouble("genxml/alreadypaid");
 
             ItemId = oInfo.PurchaseInfo.ItemID.ToString("");
