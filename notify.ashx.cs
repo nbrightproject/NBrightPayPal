@@ -49,29 +49,24 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                     if (nbi != null)
                     {
                         var orderData = new OrderData(nbi.ItemID);
+                        debugMsg += "validateUrl: " + validateUrl + " </br>";
                         if (ProviderUtils.VerifyPayment(ipn, validateUrl))
                         {
-
-                            if (debugMode)
-                            {
-                                info.SetXmlProperty("genxml/debugmsg", debugMsg);
-                                modCtrl.Update(info);
-                            }
-
                             //set order status to Payed
+                            debugMsg += "PaymentOK </br>";
                             orderData.PaymentOk();
                         }
                         else
                         {
                             if (ipn.IsValid)
                             {
-                                info.SetXmlProperty("genxml/debugmsg", "NOT VALIDATED BY PAYPAL");
+                                debugMsg += "NOT VALIDATED BY PAYPAL </br>";
                                 //set order status to Not verified
                                 orderData.PaymentOk("050");
                             }
                             else
                             {
-                                info.SetXmlProperty("genxml/debugmsg", "PAYMENT FAIL");
+                                debugMsg += "PAYMENT FAIL </br>";
                                 orderData.PaymentFail();
                             }
                         }
