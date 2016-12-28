@@ -24,7 +24,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
 
             try
             {
-                var ipn = new PayPalIpnParameters(context.Request.Form);
+                var ipn = new PayPalIpnParameters(context.Request);
 
                 var debugMode = info.GetXmlPropertyBool("genxml/checkbox/debug.mode");
 

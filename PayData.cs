@@ -82,15 +82,18 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
 
     }
 
-    public class PayPalIpnParameters 
+    public class PayPalIpnParameters
     {
 
-        public PayPalIpnParameters(NameValueCollection requestForm)
+        public PayPalIpnParameters(HttpRequest ipnRequest)
         {
-            _postString = "cmd=_notify-validate";
+            var param = ipnRequest.BinaryRead(ipnRequest.ContentLength);
+            var strRequest = Encoding.ASCII.GetString(param);
+            _postString = "cmd=_notify-validate&" + strRequest;
+
+            NameValueCollection requestForm = ipnRequest.Form;
             foreach (string paramName in requestForm)
             {
-                _postString += string.Format("&{0}={1}", paramName, HttpContext.Current.Server.UrlEncode(requestForm[paramName]));
                 switch (paramName)
                 {
                     case "payment_status":
@@ -104,6 +107,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                         break;
                 }
             }
+
         }
 
         private string _postString = string.Empty;
