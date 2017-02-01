@@ -66,8 +66,15 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                             }
                             else
                             {
-                                debugMsg += "PAYMENT FAIL </br>";
-                                orderData.PaymentFail();
+                                if (orderData.OrderStatus == "020" || orderData.OrderStatus == "010" || orderData.OrderStatus == "030")
+                                {
+                                    debugMsg += "PAYMENT FAIL </br>";
+                                    orderData.PaymentFail();
+                                }
+                                else
+                                {
+                                    debugMsg += "INVALID UPDATE ACTION</br>";
+                                }
                             }
                         }
                     }
