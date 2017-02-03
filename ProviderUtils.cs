@@ -106,6 +106,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
 
         public static bool VerifyPayment(PayPalIpnParameters ipn, string verifyUrl)
         {
+            // THIS IS A FAKE METHOD AND IS ONLY TO ALLOW A QUICK RELEASE OF TE GATEWAY.
             bool isVerified = false;
 
             if (ipn.IsValid)
@@ -113,6 +114,49 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                 if (DnnUtils.GetDataResponseAsString(verifyUrl) == "VERIFIED") isVerified = true;
             }
             return isVerified;
+        }
+
+
+        private bool VerifyPayment2(PayPalIpnParameters ipn, string verifyURL)
+        {
+            // CONVERTED FROM OLD VB PROVIDER, NEEDS TESTING BEFORE REPLACING VerifyPayment
+            try
+            {
+                bool isVerified = false;
+
+                if (ipn.IsValid)
+                {
+                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+                    HttpWebRequest PPrequest = (HttpWebRequest)WebRequest.Create(verifyURL);
+                    if ((PPrequest != null))
+                    {
+                        PPrequest.Method = "POST";
+                        PPrequest.ContentLength = ipn.PostString.Length;
+                        PPrequest.ContentType = "application/x-www-form-urlencoded";
+                        StreamWriter writer = new StreamWriter(PPrequest.GetRequestStream());
+                        writer.Write(ipn.PostString);
+                        writer.Close();
+                        HttpWebResponse response = (HttpWebResponse)PPrequest.GetResponse();
+                        if ((response != null))
+                        {
+                            StreamReader reader = new StreamReader(response.GetResponseStream());
+                            string responseString = reader.ReadToEnd();
+                            reader.Close();
+                            if (string.Compare(responseString, "VERIFIED", true) == 0)
+                            {
+                                isVerified = true;
+                            }
+                        }
+                    }
+                }
+                return isVerified;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
 
