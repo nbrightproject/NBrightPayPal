@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
-using System.Web.Util;
-using DotNetNuke.Entities.Portals;
+﻿using DotNetNuke.Entities.Portals;
 using NBrightCore.common;
 using NBrightDNN;
 using Nevoweb.DNN.NBrightBuy.Components;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
 
 namespace Nevoweb.DNN.NBrightBuyPayPal
 {
     public class ProviderUtils
     {
-
 
         public static String GetTemplateData(String templatename)
         {
@@ -77,7 +72,7 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
             rPost.Add("amount", payData.Amount);
             rPost.Add("shipping", payData.ShippingAmount);
             rPost.Add("tax", payData.TaxAmount);
-            rPost.Add("lc", Utils.GetCurrentCulture().Substring(3,2));
+            rPost.Add("lc", Utils.GetCurrentCulture().Substring(3, 2));
 
             var extrafields = settings.GetXmlProperty("genxml/textbox/extrafields");
             var fields = extrafields.Split(',');
@@ -92,7 +87,6 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
                     rPost.Add(n, d);
                 }
             }
-           
 
             //Build the re-direct html 
             var rtnStr = rPost.GetPostHtml("/DesktopModules/NBright/NBrightPayPal/Themes/config/img/paypal.gif");
@@ -103,23 +97,8 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
             return rtnStr;
         }
 
-
-        public static bool VerifyPayment(PayPalIpnParameters ipn, string verifyUrl)
+        public static bool VerifyPayment(PayPalIpnParameters ipn, string verifyURL)
         {
-            // THIS IS A FAKE METHOD AND IS ONLY TO ALLOW A QUICK RELEASE OF TE GATEWAY.
-            bool isVerified = false;
-
-            if (ipn.IsValid)
-            {
-                if (DnnUtils.GetDataResponseAsString(verifyUrl) == "VERIFIED") isVerified = true;
-            }
-            return isVerified;
-        }
-
-
-        private bool VerifyPayment2(PayPalIpnParameters ipn, string verifyURL)
-        {
-            // CONVERTED FROM OLD VB PROVIDER, NEEDS TESTING BEFORE REPLACING VerifyPayment
             try
             {
                 bool isVerified = false;
@@ -159,7 +138,6 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
             }
         }
 
-
         private string PayPalEncode(string value)
         {
             //a single accentuated/special character matches a single non acc/spec character:
@@ -183,8 +161,5 @@ namespace Nevoweb.DNN.NBrightBuyPayPal
             }
             return value;
         }
-
-
-
     }
 }
