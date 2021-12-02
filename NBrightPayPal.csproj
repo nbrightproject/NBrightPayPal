@@ -35,16 +35,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetNuke">
-      <HintPath>..\NBrightBuy\_external\DotNetNuke.dll</HintPath>
+      <HintPath>..\..\..\bin\DotNetNuke.dll</HintPath>
     </Reference>
     <Reference Include="NBrightBuy">
-      <HintPath>..\NBrightBuy\bin\NBrightBuy.dll</HintPath>
+      <HintPath>..\..\..\bin\NBrightBuy.dll</HintPath>
     </Reference>
     <Reference Include="NBrightCore">
-      <HintPath>..\NBrightBuy\_external\NBrightCore.dll</HintPath>
+      <HintPath>..\..\..\bin\NBrightCore.dll</HintPath>
     </Reference>
     <Reference Include="NBrightDNN">
-      <HintPath>..\NBrightBuy\_external\NBrightDNN.dll</HintPath>
+      <HintPath>..\..\..\bin\NBrightDNN.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
